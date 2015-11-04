@@ -949,8 +949,6 @@ var commands = exports.commands = {
 	/*********************************************************
 	 * Moderating: Punishments
 	 *********************************************************/
-
-	kick: 'warn',
 	k: 'warn',
 	warn: function (target, room, user) {
 		if (!target) return this.parse('/help warn');
@@ -1006,6 +1004,7 @@ var commands = exports.commands = {
 	redirhelp: ["/redirect OR /redir [username], [roomname] - Attempts to redirect the user [username] to the room [roomname]. Requires: % @ & ~"],
 
 	m: 'mute',
+	aa: 'mute',
 	mute: function (target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help mute');
 		if (room.isMuted(user) && !user.can('bypassall')) return this.errorReply("You cannot do this while unable to talk.");
@@ -1065,6 +1064,9 @@ var commands = exports.commands = {
 	forcelock: 'lock',
 	l: 'lock',
 	ipmute: 'lock',
+	jail: 'lock',
+	sm: 'lock',
+	stfu: 'lock',
 	lock: function (target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help lock');
 
@@ -1147,6 +1149,7 @@ var commands = exports.commands = {
 
 	forceban: 'ban',
 	b: 'ban',
+	foh: 'ban',
 	ban: function (target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help ban');
 
@@ -1424,7 +1427,7 @@ var commands = exports.commands = {
 	roomdeauth: function (target, room, user) {
 		return this.parse('/roomdemote ' + target + ', deauth');
 	},
-
+        mc: 'modchat',
 	modchat: function (target, room, user) {
 		if (!target) return this.sendReply("Moderated chat is currently set to: " + room.modchat);
 		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.errorReply("You cannot do this while unable to talk.");
@@ -1502,6 +1505,7 @@ var commands = exports.commands = {
 	htmldeclarehelp: ["/htmldeclare [message] - Anonymously announces a message using safe HTML. Requires: ~"],
 
 	gdeclare: 'globaldeclare',
+	gd: 'globaldeclare',	`
 	globaldeclare: function (target, room, user) {
 		if (!target) return this.parse('/help globaldeclare');
 		if (!this.can('gdeclare')) return false;
